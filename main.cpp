@@ -11,7 +11,7 @@ int main()
 	int playerScor=0;
 	std::string login;
 	srand(time(NULL));
-	RenderWindow window(VideoMode(1920, 1800), "Deep dungeon"/*Style::Fullscreen*/);
+	RenderWindow window(VideoMode(1920, 1800), "Deep dungeon"/*,Style::Fullscreen*/);
 	window.setVerticalSyncEnabled(true);
 	int numberLevel = rand()%10+1;
 	gameRunning(window, &numberLevel,&playerScor, menu(window, false));
