@@ -57,7 +57,7 @@ void registrationSkrin(RenderWindow& window)
 				fc.setFocusObject(&pasword2);
 			}
 			FocusObject* fo = fc.getFocusObject();
-			if (fo != 0 && !Keyboard::isKeyPressed(Keyboard::Enter) && !Keyboard::isKeyPressed(Keyboard::Space))
+			if (fo != 0 && !Keyboard::isKeyPressed(Keyboard::Enter) && !Keyboard::isKeyPressed(Keyboard::Space) && !Keyboard::isKeyPressed(Keyboard::Tab) && !Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				fo->event(event);
 			}
@@ -72,12 +72,12 @@ void registrationSkrin(RenderWindow& window)
 		if (IntRect(1000, 629, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			if (menuNum == 1) {
+			if (menuNum == 1 && f1.size()!=0) {
 				fout.open(buf1);
 				erore = false;
 				if (!erore)
 				{
-					if (f2 != buf2) {
+					if (f2 != buf2 || buf2.size()==0) {
 						erore = true;
 					}
 				}
@@ -140,7 +140,7 @@ std::string loginScrin(RenderWindow& window)
 				fc.setFocusObject(&pasword);
 			}
 			FocusObject* fo = fc.getFocusObject();
-			if (fo != 0&&!Keyboard::isKeyPressed(Keyboard::Enter) && !Keyboard::isKeyPressed(Keyboard::Space))
+			if (fo != 0&&!Keyboard::isKeyPressed(Keyboard::Enter) && !Keyboard::isKeyPressed(Keyboard::Space) && !Keyboard::isKeyPressed(Keyboard::Tab) && !Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				fo->event(event);
 			}
