@@ -31,7 +31,7 @@ void changeLevel(Level* lvl, int numberLevel)
 	if (numberLevel == 9) { lvl->LoadFromFile("8.tmx"); }
 	if (numberLevel == 10) { lvl->LoadFromFile("9.tmx"); }
 }
-
+//xui
 bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::string login)
 {
 	int score=0;
