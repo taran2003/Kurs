@@ -150,6 +150,9 @@ Enemy::Enemy(Image& image, String Name, std::string Fname, Level& lvl, int X, in
 	if (name == "EasyEnemy") {
 		sprite.setTextureRect(IntRect(0, 0, w, h));
 	}
+	if (name == "Enemy") {
+		sprite.setTextureRect(IntRect(0, 0, w, h));
+	}
 }
 
 void Enemy::checkCollisionWithMap(int Dx, int Dy)
