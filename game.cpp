@@ -22,8 +22,8 @@ void changeLevel(Level* lvl, int numberLevel)
 
 	if (numberLevel == 1) { lvl->LoadFromFile("Zero.tmx"); }
 	if (numberLevel == 2) { lvl->LoadFromFile("1.tmx"); }
-	if (numberLevel == 3) { lvl->LoadFromFile("2.tmx"); }
-	if (numberLevel == 4) { lvl->LoadFromFile("3.tmx"); }
+	if (numberLevel == 4) { lvl->LoadFromFile("2.tmx"); }
+	if (numberLevel == 3) { lvl->LoadFromFile("3.tmx"); }
 	if (numberLevel == 5) { lvl->LoadFromFile("4.tmx"); }
 	if (numberLevel == 6) { lvl->LoadFromFile("5.tmx"); }
 	if (numberLevel == 7) { lvl->LoadFromFile("6.tmx"); }
