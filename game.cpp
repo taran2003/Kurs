@@ -12,6 +12,8 @@
 #include "TinyXML/tinyxml.h"
 #include "Menu.h"
 
+int health=100,num=0;
+
 void saveScore(std::string login,int *playerScor);
 std::string loadScore(std::string login);
 
@@ -60,6 +62,7 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 	std::vector < Object> nextLvl = lvl.GetObjects("hod");
 	std::vector < Object> spike = lvl.GetObjects("spike");
 	Player p(heroImage, "Player1","stats/hero1.txt", lvl, player.rect.left, player.rect.top, 32, 32);//передаем координаты прямоугольника player из карты в координаты нашего игрока
+	p.health = health;
 	for (int i = 0; i < easyEnemyObject.size(); i++) {
 		enemys.push_back(new Enemy(easyEnemyImage, "EasyEnemy", "stats/simpleEnime1.txt", lvl, easyEnemyObject[i].rect.left, easyEnemyObject[i].rect.top, 32, 32));//nemy easyEnemy(easyEnemyImage, "EasyEnemy", lvl, easyEnemyObject.rect.left, easyEnemyObject.rect.top, 64, 64);//передаем координаты прямоугольника easyEnemy из карты в координаты нашего врага
 	}
@@ -158,8 +161,9 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 			if (p.getRect().intersects(nextLvl[i].rect) && enemys.size() == 0)
 			{
 				*playerScor+=10;
-				lvl.levelNumber++;
+				num++;
 				return true;
+				health = p.health;
 			}
 		}
 		for (int i = 0; i < spike.size(); i++) {
