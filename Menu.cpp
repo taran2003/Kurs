@@ -14,25 +14,28 @@ FocusController fc;
 
 void registrationSkrin(RenderWindow& window)
 {
-	Texture menuTexture1,registBackground, eror;
-	eror.loadFromFile("images/eror.jpg");
+	Texture menuTexture1,registBackground;
 	menuTexture1.loadFromFile("images/hero.png");
 	registBackground.loadFromFile("images/jak.jpg");
-	Sprite menu1(menuTexture1),menuBg(registBackground), EROR(eror);
+	Sprite menu1(menuTexture1), menuBg(registBackground);
 	bool isb = 1, erore = false;
 	int menuNum = 0;
-	menu1.setPosition(1000, 629);
+	menu1.setPosition(730, 50);
 	menuBg.setPosition(100, 0);
-	EROR.setPosition(704, 0);
 	sf::Font font;
 	font.loadFromFile("CyrilicOld.ttf");
-	sf::Text log, pas1,pas2;
+	sf::Text log, pas1,pas2,eror;
 	log.setPosition(153, 140);
 	log.setFont(font);
 	pas1.setPosition(153, 183);
 	pas1.setFont(font);
 	pas2.setPosition(153, 226);
 	pas2.setFont(font);
+	eror.setPosition(704, 0);
+	eror.setFont(font);
+	eror.setString("несовпадение паролей");
+	eror.setCharacterSize(40);
+	eror.setFillColor(Color::Red);
 	int x = 0;
 	TextBox login(log), pasword1(pas1),pasword2(pas2);
 	std::string f1, f2, buf1, buf2;
@@ -65,15 +68,15 @@ void registrationSkrin(RenderWindow& window)
 		f1 = login.getText();
 		f2 = pasword1.getText();
 		buf2 = pasword2.getText();
-		buf1 = "plaeyrs/" + f1 + ".txt";
+		buf1 = f1;
 		menu1.setColor(Color::White);
 		menuNum = 0;
 		window.clear(Color(129, 181, 221));
-		if (IntRect(1000, 629, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
+		if (IntRect(730, 50, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (menuNum == 1 && f1.size()!=0) {
-				fout.open(buf1);
+				fout.open("players.txt",std::ios::app);
 				erore = false;
 				if (!erore)
 				{
@@ -83,6 +86,7 @@ void registrationSkrin(RenderWindow& window)
 				}
 				if (!erore) {
 					isb = false;
+					fout << buf1 << std::endl;
 					fout << buf2<<std::endl;
 				}
 				fout.close();
@@ -92,7 +96,7 @@ void registrationSkrin(RenderWindow& window)
 		window.draw(menu1);
 		window.draw(login);
 		if (erore)
-			window.draw(EROR);
+			window.draw(eror);
 		window.draw(pasword1);
 		window.draw(pasword2);
 		window.display();
@@ -101,25 +105,28 @@ void registrationSkrin(RenderWindow& window)
 
 std::string loginScrin(RenderWindow& window)
 {
-	Texture menuTexture1, menuTexture2, registBackground,eror;
-	eror.loadFromFile("images/eror.jpg");
+	Texture menuTexture1, menuTexture2, registBackground;
 	menuTexture1.loadFromFile("images/hero.png");
 	menuTexture2.loadFromFile("images/simpleEnime.png");
 	registBackground.loadFromFile("images/jak.jpg");
-	Sprite menu1(menuTexture1),menu2(menuTexture2), menuBg(registBackground),EROR(eror);
+	Sprite menu1(menuTexture1),menu2(menuTexture2), menuBg(registBackground);
 	bool isb = 1,erore=false;
 	int menuNum = 0;
-	menu1.setPosition(1064, 629);
-	menu2.setPosition(1064, 693);
+	menu1.setPosition(730, 50);
+	menu2.setPosition(730, 114);
 	menuBg.setPosition(100, 0);
-	EROR.setPosition(704, 0);
 	sf::Font font;
 	font.loadFromFile("CyrilicOld.ttf");
-	sf::Text log,pas;
+	sf::Text log,pas,eror;
 	log.setPosition(153,140);
 	log.setFont(font);
 	pas.setPosition(153, 183);
 	pas.setFont(font);
+	eror.setPosition(704, 0);
+	eror.setFont(font);
+	eror.setString("неправельный логин или пароль");
+	eror.setCharacterSize(40);
+	eror.setFillColor(Color::Red);
 	int x = 0;
 	TextBox login(log),pasword(pas);
 	std::string f1,f2,buf1,buf2;
@@ -152,8 +159,8 @@ std::string loginScrin(RenderWindow& window)
 		menu2.setColor(Color::White);
 		menuNum = 0;
 		window.clear(Color(129, 181, 221));
-		if (IntRect(1064, 629, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
-		if (IntRect(1064, 693, 64, 64).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Black); menuNum = 2; }
+		if (IntRect(730, 50, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
+		if (IntRect(730, 114, 64, 64).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Black); menuNum = 2; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (menuNum == 1) {
@@ -185,7 +192,7 @@ std::string loginScrin(RenderWindow& window)
 		window.draw(menu2);
 		window.draw(login);
 		if(erore)
-		window.draw(EROR);
+		window.draw(eror);
 		window.draw(pasword);
 		window.display();
 	}
