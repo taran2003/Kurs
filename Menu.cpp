@@ -12,6 +12,15 @@
 
 FocusController fc;
 
+bool isInt(std::string str)
+{
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (!isdigit(str[i]))return false;
+	}
+	return true;
+}
+
 void registrationSkrin(RenderWindow& window)
 {
 	Texture menuTexture1,registBackground;
@@ -20,7 +29,7 @@ void registrationSkrin(RenderWindow& window)
 	Sprite menu1(menuTexture1), menuBg(registBackground);
 	bool isb = 1, erore = false;
 	int menuNum = 0;
-	menu1.setPosition(730, 50);
+	menu1.setPosition(800, 50);
 	menuBg.setPosition(100, 0);
 	sf::Font font;
 	font.loadFromFile("CyrilicOld.ttf");
@@ -72,11 +81,11 @@ void registrationSkrin(RenderWindow& window)
 		menu1.setColor(Color::White);
 		menuNum = 0;
 		window.clear(Color(129, 181, 221));
-		if (IntRect(730, 50, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
+		if (IntRect(800, 50, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (menuNum == 1 && f1.size()!=0) {
-				fout.open("players.txt",std::ios::app);
+				fout.open("plaeyrs/players.txt",std::ios::app);
 				erore = false;
 				if (!erore)
 				{
@@ -87,7 +96,7 @@ void registrationSkrin(RenderWindow& window)
 				if (!erore) {
 					isb = false;
 					fout << buf1 << std::endl;
-					fout << buf2<<std::endl;
+					fout << buf2<<std::endl << std::endl;
 				}
 				fout.close();
 			}
@@ -129,7 +138,7 @@ std::string loginScrin(RenderWindow& window)
 	eror.setFillColor(Color::Red);
 	int x = 0;
 	TextBox login(log),pasword(pas);
-	std::string f1,f2,buf1,buf2;
+	std::string f1,f2,name, buf1, buf2, buf3;
 	std::ifstream fin;
 	while (isb)
 	{
@@ -154,7 +163,7 @@ std::string loginScrin(RenderWindow& window)
 		}
 		f1 = login.getText();
 		f2 = pasword.getText();
-		buf1 = "plaeyrs/" + f1 + ".txt";
+	    name = "plaeyrs/players.txt";
 		menu1.setColor(Color::White);
 		menu2.setColor(Color::White);
 		menuNum = 0;
@@ -164,23 +173,19 @@ std::string loginScrin(RenderWindow& window)
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (menuNum == 1) {
-				fin.open(buf1);
-				erore = false;
-				if (!fin.is_open())
+				fin.open(name);
+				erore = true;
+				while (erore && !fin.eof())
 				{
-					erore = true;
-				}
-				else if (!erore)
-				{
-					fin >> buf2;
-					if(buf2!=f2)
+					getline(fin,buf1);
+					getline(fin, buf2);
+					if (buf1 == f1 && buf2 == f2)
 					{
-						erore = true;
+						erore = false;
+						isb = false;
 					}
+					getline(fin, buf3);
 				}
-				if(!erore){ 
-					isb = false;
-			    }
 				fin.close();
 			}
 			if (menuNum == 2) {
@@ -196,7 +201,7 @@ std::string loginScrin(RenderWindow& window)
 		window.draw(pasword);
 		window.display();
 	}
-	return buf1;
+	return f1;
 }
 
 std::string menu(RenderWindow& window, bool inGame)

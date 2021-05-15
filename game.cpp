@@ -162,8 +162,8 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 			{
 				*playerScor+=10;
 				num++;
-				return true;
 				health = p.health;
+				return true;
 			}
 		}
 		for (int i = 0; i < spike.size(); i++) {
@@ -226,10 +226,10 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 
 void gameRunning(RenderWindow& window, int* numberLevel,int* playerScor, std::string login)
 {
-	if (startGame(*&window, &*numberLevel, &*playerScor, login))
+	if (startGame(*&window, &*numberLevel, &*playerScor,login))
 	{
 		*numberLevel = rand() % 10 + 1;
-		gameRunning(*&window, *&numberLevel, &*playerScor, login);
+		gameRunning(*&window, *&numberLevel, &*playerScor,login);
 	}
 	else menu(window, false);;
 }
@@ -237,37 +237,59 @@ void gameRunning(RenderWindow& window, int* numberLevel,int* playerScor, std::st
 std::string loadScore(std::string login)
 {
 	std::ifstream fin;
-	std::string buf1, buf2;
+	std::string buf1, buf2,buf3;
 	int score = 0;
-	fin.open(login);
-	getline(fin, buf1);
-	getline(fin, buf2);
+	fin.open("plaeyrs/players.txt");
+	while (buf1 != login)
+	{
+		getline(fin, buf1);
+		getline(fin, buf2);
+		getline(fin, buf3);
+	}
 	fin.close();
-	return buf2;
+	if (buf3.size() == 0)
+		buf3 = "0";
+	return buf3;
 }
 
-void saveScore(std::string login, int* playerScor)
+void saveScore(std::string login,int* playerScor)
 {
 	std::ifstream fin;
 	std::ofstream fout;
-	std::string buf1, buf2;
-	int score=0;
-	fin.open(login);
-	getline(fin, buf1);
-	getline(fin, buf2);
+	std::vector<std::string> buf1, buf2,buf3;
+	std::string f;
+	int score=0,i=0;
+	fin.open("plaeyrs/players.txt");
+	while (!fin.eof())
+	{
+		getline(fin, f);
+		buf1.push_back(f);
+		getline(fin, f);
+		buf2.push_back(f);
+		getline(fin, f);
+		buf3.push_back(f);
+	}
 	fin.close();
-	for (int i = 0; i < buf2.size(); i++)
+	while(buf1[i]!=login)
 	{
-		score += buf2[i] - '0';
-		score *= 10;
+		i++;
 	}
-	score /= 10;
-	fout.open(login);
-	fout << buf1 << std::endl;
-	if (score < *playerScor)
+	if (buf3[i].size() != 0) {
+		for (int j = 0; j < buf3[i].size(); j++)
+		{
+			score += buf3[i][j] - '0';
+			score *= 10;
+		}
+		score /= 10;
+	}
+	else score = 0;
+	fout.open("plaeyrs/players.txt");
+	for (int j = 0; j < buf1.size(); j++)
 	{
-		fout << *playerScor;
+		fout << buf1[j] << std::endl << buf2[j] << std::endl;
+		if (score < *playerScor && j == i)
+			fout << *playerScor << std::endl;
+		else fout << buf3[j] << std::endl;
 	}
-	else fout << buf2;
 	*playerScor = 0;
 }

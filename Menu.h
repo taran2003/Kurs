@@ -11,3 +11,4 @@
 #include "TinyXML/tinyxml.h"
 #include "characters.h"
 std::string menu(RenderWindow& window, bool inGame);
+bool isInt(std::string str);
