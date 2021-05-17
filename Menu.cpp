@@ -10,7 +10,9 @@
 #include "Menu.h"
 #include "text_box.h"
 
-FocusController fc;
+FocusController fcL;
+FocusController fcR;
+
 
 bool isInt(std::string str)
 {
@@ -27,7 +29,7 @@ void registrationSkrin(RenderWindow& window)
 	menuTexture1.loadFromFile("images/hero.png");
 	registBackground.loadFromFile("images/jak.jpg");
 	Sprite menu1(menuTexture1), menuBg(registBackground);
-	bool isb = 1, erore = false;
+	bool isb = 1, erore1 = false, erore2 = false;
 	int menuNum = 0;
 	menu1.setPosition(800, 50);
 	menuBg.setPosition(100, 0);
@@ -42,13 +44,13 @@ void registrationSkrin(RenderWindow& window)
 	pas2.setFont(font);
 	eror.setPosition(704, 0);
 	eror.setFont(font);
-	eror.setString("несовпадение паролей");
 	eror.setCharacterSize(40);
 	eror.setFillColor(Color::Red);
 	int x = 0;
 	TextBox login(log), pasword1(pas1),pasword2(pas2);
-	std::string f1, f2, buf1, buf2;
+	std::string f1, f2, buf1, buf2,buf3;
 	std::ofstream fout;
+	std::ifstream fin;
 	while (isb)
 	{
 		Event event;
@@ -58,17 +60,17 @@ void registrationSkrin(RenderWindow& window)
 				window.close();
 			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419 && Mouse::getPosition(window).y < 178 && Mouse::getPosition(window).y > 147)
 			{
-				fc.setFocusObject(&login);
+				fcR.setFocusObject(&login);
 			}
 			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419 && Mouse::getPosition(window).y > 178&&Mouse::getPosition(window).y <209)
 			{
-				fc.setFocusObject(&pasword1);
+				fcR.setFocusObject(&pasword1);
 			}
 			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419 && Mouse::getPosition(window).y > 213 && Mouse::getPosition(window).y < 280)
 			{
-				fc.setFocusObject(&pasword2);
+				fcR.setFocusObject(&pasword2);
 			}
-			FocusObject* fo = fc.getFocusObject();
+			FocusObject* fo = fcR.getFocusObject();
 			if (fo != 0 && !Keyboard::isKeyPressed(Keyboard::Enter) && !Keyboard::isKeyPressed(Keyboard::Space) && !Keyboard::isKeyPressed(Keyboard::Tab) && !Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				fo->event(event);
@@ -76,36 +78,53 @@ void registrationSkrin(RenderWindow& window)
 		}
 		f1 = login.getText();
 		f2 = pasword1.getText();
-		buf2 = pasword2.getText();
-		buf1 = f1;
 		menu1.setColor(Color::White);
 		menuNum = 0;
 		window.clear(Color(129, 181, 221));
 		if (IntRect(800, 50, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			if (menuNum == 1 && f1.size()!=0) {
-				fout.open("plaeyrs/players.txt",std::ios::app);
-				erore = false;
-				if (!erore)
+			fin.open("plaeyrs/players.txt");
+			erore2 = false;
+			erore2 = false;
+			while (fin.is_open()&&menuNum == 1&&!erore2 && !fin.eof())
+			{
+				getline(fin, buf1);
+				getline(fin, buf2);
+				if (buf1 == f1)
 				{
-					if (f2 != buf2 || buf2.size()==0) {
-						erore = true;
+					erore2 = true;
+				}
+				getline(fin, buf3);
+			}
+			fin.close();
+			buf2 = pasword2.getText();
+			buf1 = f1;
+			if (menuNum == 1 && !erore1 &&!erore2) {
+				fout.open("plaeyrs/players.txt",std::ios::app);
+				if (!erore1)
+				{
+					if (f2 != buf2 || buf2.size()==0||f1.size()==0) {
+						erore1 = true;
 					}
 				}
-				if (!erore) {
-					isb = false;
+				if (!erore1) {
 					fout << buf1 << std::endl;
 					fout << buf2<<std::endl << std::endl;
 				}
 				fout.close();
 			}
+			if (menuNum == 1 && !erore1 && !erore2 && buf2.size() != 0 && f1.size() != 0)
+			{
+				isb = false;
+			}
 		}
 		window.draw(menuBg);
 		window.draw(menu1);
 		window.draw(login);
-		if (erore)
-			window.draw(eror);
+		if (erore2)eror.setString("пользователь с таким именем уже существует");
+		else if (erore1)eror.setString("несовпадение паролей");
+		window.draw(eror);
 		window.draw(pasword1);
 		window.draw(pasword2);
 		window.display();
@@ -149,13 +168,13 @@ std::string loginScrin(RenderWindow& window)
 				window.close();
 			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419&& Mouse::getPosition(window).y<178 && Mouse::getPosition(window).y > 147)
 			{
-				fc.setFocusObject(&login);
+				fcL.setFocusObject(&login);
 			}
 			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419 && Mouse::getPosition(window).y > 178)
 			{
-				fc.setFocusObject(&pasword);
+				fcL.setFocusObject(&pasword);
 			}
-			FocusObject* fo = fc.getFocusObject();
+			FocusObject* fo = fcL.getFocusObject();
 			if (fo != 0&&!Keyboard::isKeyPressed(Keyboard::Enter) && !Keyboard::isKeyPressed(Keyboard::Space) && !Keyboard::isKeyPressed(Keyboard::Tab) && !Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				fo->event(event);

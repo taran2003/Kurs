@@ -312,12 +312,14 @@ void saveScore(std::string login,int* playerScor)
 	}
 	else score = 0;
 	fout.open("plaeyrs/players.txt");
-	for (int j = 0; j < buf1.size(); j++)
+	fout << "";
+	for (int j = 0; j < buf3.size()-1; j++)
 	{
 		fout << buf1[j] << std::endl << buf2[j] << std::endl;
 		if (score < *playerScor && j == i)
 			fout << *playerScor << std::endl;
-		else fout << buf3[j] << std::endl;
+		else if (buf3[j].size()!=0)fout << buf3[j] << std::endl;
+		else fout << std::endl;
 	}
 	*playerScor = 0;
 }
