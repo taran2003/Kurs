@@ -13,7 +13,7 @@ int main()
 	srand(time(NULL));
 	RenderWindow window(VideoMode(1920, 900), "Deep dungeon"/*,Style::Fullscreen*/);
 	window.setVerticalSyncEnabled(true);
-	int numberLevel = rand()%10+1;
+	int numberLevel = rand() % 2 + 1;
 	gameRunning(window, &numberLevel,&playerScor, menu(window, false));
 	return 0;
 }

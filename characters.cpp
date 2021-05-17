@@ -48,10 +48,11 @@ Vector2f Entity::getCoordinates()
 }
 
 Player::Player(Image& image, String Name, std::string Fname, Level& lev, int X, int Y, int W, int H) :Entity(image, Name,Fname, X, Y, W, H) {
-	playerScore = 0; stateX = stayX; stateY = stayY;  obj = lev.GetAllObjects();//инициализируем.получаем все объекты для взаимодействия персонажа с картой
+	stateX = stayX; stateY = stayY;  obj = lev.GetAllObjects();//инициализируем.получаем все объекты для взаимодействия персонажа с картой
 	if (name == "Player1") {
 		sprite.setTextureRect(IntRect(0, 0, w, h));
 	}
+	item = "";
 }
 
 void Player::controlX()

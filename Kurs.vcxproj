@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="characters.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="Item_Read.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="characters.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="Item_Read.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="text_box.h" />

@@ -32,7 +32,7 @@ public:
 	enum staitobjectY { up, down, stayY };
 	staitobjectY stateY;
 	staitobjectX stateX;
-	int playerScore;
+	std::string item;
 	Player(Image& image, String Name, std::string Fname, Level& lev, int X, int Y, int W, int H);
 	void controlX();
 	void controlY();
