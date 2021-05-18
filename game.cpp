@@ -171,6 +171,12 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 		gameScoreString << *playerScor;
 		text.setString("Здоровье: " + playerHealthString.str()+"\n"+"Очки: " +gameScoreString.str()+"\nвысший рекорд:"+MaxScore);//задаем строку тексту и вызываем сформированную выше строку методом .str()
 		text.setPosition(view.getCenter().x - 400, view.getCenter().y - 200);//задаем позицию текста, отступая от центра камеры
+		if (!p.life)
+		{
+			text.setString("GAME OVER");//задаем строку тексту и вызываем сформированную выше строку методом .str()
+			text.setCharacterSize(50);
+			text.setPosition(view.getCenter().x-90, view.getCenter().y );//задаем позицию текста, отступая от центра камеры
+		}
 		for (int i = 0; i < nextLvl.size(); i++) {
 			if (p.getRect().intersects(nextLvl[i].rect) && enemys.size() == 0)
 			{
@@ -204,6 +210,7 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
+			text.setCharacterSize(30);
 		    inPause = true;
 			text.setString("             пауза\nнажмите(Y)для продолжения\nнажмите(X)для выхода");
 			text.setPosition(view.getCenter().x - 70, view.getCenter().y);

@@ -10,10 +10,6 @@
 #include "Menu.h"
 #include "text_box.h"
 
-FocusController fcL;
-FocusController fcR;
-
-
 bool isInt(std::string str)
 {
 	for (int i = 0; i < str.size(); i++)
@@ -25,6 +21,7 @@ bool isInt(std::string str)
 
 void registrationSkrin(RenderWindow& window)
 {
+	FocusController fcR;
 	Texture menuTexture1,registBackground;
 	menuTexture1.loadFromFile("images/hero.png");
 	registBackground.loadFromFile("images/jak.jpg");
@@ -86,7 +83,7 @@ void registrationSkrin(RenderWindow& window)
 		{
 			fin.open("plaeyrs/players.txt");
 			erore2 = false;
-			erore2 = false;
+			erore1 = false;
 			while (fin.is_open()&&menuNum == 1&&!erore2 && !fin.eof())
 			{
 				getline(fin, buf1);
@@ -133,6 +130,7 @@ void registrationSkrin(RenderWindow& window)
 
 std::string loginScrin(RenderWindow& window)
 {
+	FocusController fcL;
 	Texture menuTexture1, menuTexture2, registBackground;
 	menuTexture1.loadFromFile("images/hero.png");
 	menuTexture2.loadFromFile("images/simpleEnime.png");
