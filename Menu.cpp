@@ -23,28 +23,39 @@ void registrationSkrin(RenderWindow& window)
 {
 	FocusController fcR;
 	Texture menuTexture1,registBackground;
-	menuTexture1.loadFromFile("images/hero.png");
-	registBackground.loadFromFile("images/jak.jpg");
+	menuTexture1.loadFromFile("images/enter.png");
+	registBackground.loadFromFile("images/Menucool.jpg");
 	Sprite menu1(menuTexture1), menuBg(registBackground);
 	bool isb = 1, erore1 = false, erore2 = false;
 	int menuNum = 0;
-	menu1.setPosition(800, 50);
-	menuBg.setPosition(100, 0);
+	menu1.setPosition(50, 350);
 	sf::Font font;
 	font.loadFromFile("CyrilicOld.ttf");
-	sf::Text log, pas1,pas2,eror;
-	log.setPosition(153, 140);
+	sf::Text log, pas1,pas2,eror,LOG,PAS1,PAS2;
+	LOG.setString("Логин");
+	LOG.setPosition(50, 100);
+	PAS1.setString("Пароль");
+	PAS1.setPosition(50, 180);
+	PAS2.setString("Подтверждение пароля");
+	PAS2.setPosition(50, 260);
+	LOG.setFont(font);
+	PAS1.setFont(font);
+	PAS2.setFont(font);
+	LOG.setFillColor(Color(74, 38, 38));
+	PAS1.setFillColor(Color(74, 38, 38));
+	PAS2.setFillColor(Color(74, 38, 38));
+	log.setPosition(50, 140);
 	log.setFont(font);
-	pas1.setPosition(153, 183);
+	pas1.setPosition(50, 220);
 	pas1.setFont(font);
-	pas2.setPosition(153, 226);
+	pas2.setPosition(50, 300);
 	pas2.setFont(font);
-	eror.setPosition(704, 0);
+	eror.setPosition(50, 380);
 	eror.setFont(font);
 	eror.setCharacterSize(40);
 	eror.setFillColor(Color::Red);
 	int x = 0;
-	TextBox login(log), pasword1(pas1),pasword2(pas2);
+	TextBox login(log,400,30), pasword1(pas1,400,30),pasword2(pas2,400,30);
 	std::string f1, f2, buf1, buf2,buf3;
 	std::ofstream fout;
 	std::ifstream fin;
@@ -55,15 +66,15 @@ void registrationSkrin(RenderWindow& window)
 		{
 			if (event.type == Event::Closed)
 				window.close();
-			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419 && Mouse::getPosition(window).y < 178 && Mouse::getPosition(window).y > 147)
+			if (event.type == Event::MouseButtonPressed && login.getRect().contains(Mouse::getPosition(window)))
 			{
 				fcR.setFocusObject(&login);
 			}
-			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419 && Mouse::getPosition(window).y > 178&&Mouse::getPosition(window).y <209)
+			if (event.type == Event::MouseButtonPressed && pasword1.getRect().contains(Mouse::getPosition(window)))
 			{
 				fcR.setFocusObject(&pasword1);
 			}
-			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419 && Mouse::getPosition(window).y > 213 && Mouse::getPosition(window).y < 280)
+			if (event.type == Event::MouseButtonPressed && pasword2.getRect().contains(Mouse::getPosition(window)))
 			{
 				fcR.setFocusObject(&pasword2);
 			}
@@ -77,8 +88,8 @@ void registrationSkrin(RenderWindow& window)
 		f2 = pasword1.getText();
 		menu1.setColor(Color::White);
 		menuNum = 0;
-		window.clear(Color(129, 181, 221));
-		if (IntRect(800, 50, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
+		window.clear();
+		if (IntRect(50, 350, 71,25).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			fin.open("plaeyrs/players.txt");
@@ -119,7 +130,10 @@ void registrationSkrin(RenderWindow& window)
 		window.draw(menuBg);
 		window.draw(menu1);
 		window.draw(login);
-		if (erore2)eror.setString("пользователь с таким именем уже существует");
+		window.draw(LOG);
+		window.draw(PAS1);
+		window.draw(PAS2);
+		if (erore2)eror.setString("пользователь с таким \nименем уже существует");
 		else if (erore1)eror.setString("несовпадение паролей");
 		window.draw(eror);
 		window.draw(pasword1);
@@ -132,29 +146,36 @@ std::string loginScrin(RenderWindow& window)
 {
 	FocusController fcL;
 	Texture menuTexture1, menuTexture2, registBackground;
-	menuTexture1.loadFromFile("images/hero.png");
-	menuTexture2.loadFromFile("images/simpleEnime.png");
-	registBackground.loadFromFile("images/jak.jpg");
+	menuTexture1.loadFromFile("images/enter.png");
+	menuTexture2.loadFromFile("images/reg.png");
+	registBackground.loadFromFile("images/Menucool.jpg");
 	Sprite menu1(menuTexture1),menu2(menuTexture2), menuBg(registBackground);
 	bool isb = 1,erore=false;
 	int menuNum = 0;
-	menu1.setPosition(730, 50);
-	menu2.setPosition(730, 114);
-	menuBg.setPosition(100, 0);
+	menu1.setPosition(50, 270);
+	menu2.setPosition(50, 310);
 	sf::Font font;
 	font.loadFromFile("CyrilicOld.ttf");
-	sf::Text log,pas,eror;
-	log.setPosition(153,140);
+	sf::Text log,pas,eror,LOG,PAS;
+	LOG.setString("Логин");
+	LOG.setPosition(50, 100);
+	PAS.setString("Пароль");
+	LOG.setFont(font);
+	PAS.setFont(font);
+	LOG.setFillColor(Color(74, 38, 38));
+	PAS.setFillColor(Color(74, 38, 38));
+	PAS.setPosition(50, 180);
+	log.setPosition(50,140);
 	log.setFont(font);
-	pas.setPosition(153, 183);
+	pas.setPosition(50, 220);
 	pas.setFont(font);
-	eror.setPosition(704, 0);
+	eror.setPosition(50, 340);
 	eror.setFont(font);
-	eror.setString("неправельный логин или пароль");
+	eror.setString("неправельный логин \nили пароль");
 	eror.setCharacterSize(40);
 	eror.setFillColor(Color::Red);
 	int x = 0;
-	TextBox login(log),pasword(pas);
+	TextBox login(log,400,30),pasword(pas,400,30);
 	std::string f1,f2,name, buf1, buf2, buf3;
 	std::ifstream fin;
 	while (isb)
@@ -164,11 +185,11 @@ std::string loginScrin(RenderWindow& window)
 		{
 			if (event.type == Event::Closed)
 				window.close();
-			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419&& Mouse::getPosition(window).y<178 && Mouse::getPosition(window).y > 147)
+			if (event.type == Event::MouseButtonPressed && login.getRect().contains(Mouse::getPosition(window)))
 			{
 				fcL.setFocusObject(&login);
 			}
-			if (event.type == Event::MouseButtonPressed && Mouse::getPosition(window).x > 153 && Mouse::getPosition(window).x < 419 && Mouse::getPosition(window).y > 178)
+			if (event.type == Event::MouseButtonPressed && pasword.getRect().contains(Mouse::getPosition(window)))
 			{
 				fcL.setFocusObject(&pasword);
 			}
@@ -185,8 +206,8 @@ std::string loginScrin(RenderWindow& window)
 		menu2.setColor(Color::White);
 		menuNum = 0;
 		window.clear(Color(129, 181, 221));
-		if (IntRect(730, 50, 64, 64).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
-		if (IntRect(730, 114, 64, 64).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Black); menuNum = 2; }
+		if (IntRect(50, 270, 71, 25).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Black); menuNum = 1; }
+		if (IntRect(50, 310, 187, 25).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Black); menuNum = 2; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (menuNum == 1) {
@@ -213,6 +234,8 @@ std::string loginScrin(RenderWindow& window)
 		window.draw(menu1);
 		window.draw(menu2);
 		window.draw(login);
+		window.draw(LOG);
+		window.draw(PAS);
 		if(erore)
 		window.draw(eror);
 		window.draw(pasword);
@@ -223,20 +246,25 @@ std::string loginScrin(RenderWindow& window)
 
 std::string menu(RenderWindow& window, bool inGame)
 {
-	Texture menuTexture1, menuTexture2, menuTexture3, aboutTexture, menuBackground;
-	menuTexture1.loadFromFile("images/111.png");
-	menuTexture2.loadFromFile("images/222.png");
-	menuTexture3.loadFromFile("images/333.png");
-	aboutTexture.loadFromFile("images/about.jpg");
-	menuBackground.loadFromFile("images/Penguins.jpg");
-	Sprite menu1(menuTexture1), menu2(menuTexture2), menu3(menuTexture3), about(aboutTexture), menuBg(menuBackground);
+	Texture menuTexture1, menuTexture2, menuTexture3, menuBackground;
+	menuTexture1.loadFromFile("images/New_Game.png");
+	menuTexture2.loadFromFile("images/about.png");
+	menuTexture3.loadFromFile("images/Exit.png");
+	menuBackground.loadFromFile("images/Menucool.jpg");
+	Sprite menu1(menuTexture1), menu2(menuTexture2), menu3(menuTexture3), menuBg(menuBackground);
 	bool isMenu = 1;
 	std::string login;
+	Text about;
+	Font font;
+	font.loadFromFile("CyrilicOld.ttf");
+	about.setFont(font);
+	about.setString("Цель игры заключается в наборе \nмаксимального количества очков. \nЗа прохождение комнаты \nначисляется 10 очков, а за \nубийство врага 1.\nТакже каждая 10 комната \nхранит в себе придмет.\n(для выхода нажмите Esc)");
+	about.setPosition(50, 50);
+	about.setFillColor(Color(74,38,38));
 	short menuNum = 0;
 	menu1.setPosition(100, 30);
 	menu2.setPosition(100, 90);
 	menu3.setPosition(100, 150);
-	menuBg.setPosition(345, 0);
 	while (isMenu)
 	{
 		Event event;
@@ -267,7 +295,7 @@ std::string menu(RenderWindow& window, bool inGame)
 			}
 			case 2:
 			{
-				window.draw(about); window.display(); while (!Keyboard::isKeyPressed(Keyboard::Escape));
+				window.draw(menuBg); window.draw(about); window.display(); while (!Keyboard::isKeyPressed(Keyboard::Escape));
 				break;
 			}
 			case 3:

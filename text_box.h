@@ -10,27 +10,25 @@ public:
     virtual void event(const sf::Event&) = 0;
 };
 
-
-
 class TextBox : public sf::Drawable, public FocusObject , public sf::Transformable 
 {
 public:
-    TextBox(const sf::Text& text);
+    TextBox(const sf::Text& text, int W, int H);
     virtual void draw(sf::RenderTarget& render, sf::RenderStates states) const;
     virtual void setFocus();
     virtual void deleteFocus();
     virtual void event(const sf::Event& event);
     void setText(const sf::String& str);
+    sf::IntRect getRect();
     sf::String getText();
 private:
+    int h, w;
     void updateRect();
     mutable sf::RectangleShape m_box;
     mutable sf::Text m_text;
     mutable sf::String m_newText;
     mutable bool m_textChanged;
 };
-
-
 
 class FocusController
 {

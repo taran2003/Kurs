@@ -1,7 +1,8 @@
 #include "text_box.h"
 
-TextBox::TextBox(const sf::Text& text) : m_text(text)
+TextBox::TextBox(const sf::Text& text, int W, int H) : m_text(text)
     {
+        w = W; h = H;
         m_newText = m_text.getString();
         updateRect();
         m_box.setFillColor(sf::Color::White);
@@ -55,7 +56,13 @@ void TextBox::event(const sf::Event& event)
 void TextBox::setText(const sf::String& str)
 {
     m_text.setString(str);
-    updateRect();
+    updateRect( );
+}
+
+sf::IntRect TextBox::getRect()
+{
+    sf::FloatRect rect =m_box.getGlobalBounds();
+    return  sf::IntRect(rect.left,rect.top,rect.width,rect.height);
 }
 
 sf::String TextBox::getText()
@@ -67,7 +74,7 @@ void TextBox::updateRect()
 {
     sf::FloatRect rect = m_text.getGlobalBounds();
     m_box.setPosition(rect.left - 5, rect.top - 5);
-    m_box.setSize(sf::Vector2f(rect.width + 10, rect.height + 10));
+    m_box.setSize(sf::Vector2f(w,h));
 }
 
 FocusController::FocusController(FocusObject* obj) : m_object(obj)

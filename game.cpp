@@ -210,7 +210,7 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
-			text.setCharacterSize(30);
+			text.setCharacterSize(20);
 		    inPause = true;
 			text.setString("             пауза\nнажмите(Y)для продолжения\nнажмите(X)для выхода");
 			text.setPosition(view.getCenter().x - 70, view.getCenter().y);
@@ -223,6 +223,7 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 			window.display();
 			while (inPause)
 			{
+				clock.restart();
 				if (Keyboard::isKeyPressed(Keyboard::Y))
 				{
 					inPause = false;
@@ -241,6 +242,7 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 		{
 			initialization(&p.health, enemys, &p.item);
 			activeItem = "";
+			p.item = "";
 			PickUped = true;
 		}
 		window.setView(view);
