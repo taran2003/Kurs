@@ -173,8 +173,8 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 		text.setPosition(view.getCenter().x - 400, view.getCenter().y - 200);//задаем позицию текста, отступая от центра камеры
 		if (!p.life)
 		{
-			text.setString("GAME OVER");//задаем строку тексту и вызываем сформированную выше строку методом .str()
-			text.setCharacterSize(50);
+			text.setString("GAME OVER \npress r to reset");//задаем строку тексту и вызываем сформированную выше строку методом .str()
+			text.setCharacterSize(30);
 			text.setPosition(view.getCenter().x-90, view.getCenter().y );//задаем позицию текста, отступая от центра камеры
 		}
 		for (int i = 0; i < nextLvl.size(); i++) {
@@ -212,7 +212,7 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 		{
 			text.setCharacterSize(20);
 		    inPause = true;
-			text.setString("             пауза\nнажмите(Y)для продолжения\nнажмите(X)для выхода");
+			text.setString("       пауза\nнажмите(Y)для продолжения\nнажмите(X)для выхода");
 			text.setPosition(view.getCenter().x - 70, view.getCenter().y);
 			window.clear();
 			lvl.Draw(window);
@@ -231,7 +231,7 @@ bool startGame(RenderWindow& window, int* numberLevel, int* playerScor, std::str
 				if (Keyboard::isKeyPressed(Keyboard::X))
 				{
 					saveScore(login, &*playerScor);
-					view.reset(FloatRect(0, 0, 1800, 900));
+					view.reset(FloatRect(0, 0, 1920, 1080));
 					window.setView(view);
 					window.setMouseCursorVisible(true);
 					return false;

@@ -56,12 +56,6 @@
     <ClInclude Include="view.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="TinyXML\tinystr.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="TinyXML\tinyxml.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -79,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="Item_Read.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyXML\tinystr.h">
+      <Filter>Файлы ресурсов</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyXML\tinyxml.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
